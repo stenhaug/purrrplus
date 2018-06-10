@@ -1,6 +1,6 @@
 Package: purrrplus
 Version: 0.0.0.9000
-Title: Expands functionality of purrr to maintain data frame structure and run functions safely.
+Title: Expands the functionality of purrr by executing functions safely while maintaining the structure of a data frame.
 Description: The beauty of the tidyverse is that it allows you to more often work within data frames which have a clean structure. However, both running a function safely (which returns a list) and using pmap make it a bit more troublesome to keep analysis within the structure of a data frame. purrrplus adds functionality to purrr that keeps analyis cleanly within the structure of a data frame. This is useful for running simulations and specific types of data analysis tasks.
 Authors@R: person("Ben", "Stenhaug", , "benastenhaug@gmail.com", c("aut", "cre"))
 License: GPL-2
