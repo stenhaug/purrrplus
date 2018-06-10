@@ -88,7 +88,7 @@ str(output)
 
 pmap_safely is the key function in purrrplus. pmap_safely takes a data frame (which might contain irrelevant variables) and applies a function (which returns a named list or a named vector and might throw an error) to each row. 
 
-pmap_safely returns the data frame that was inputted but with an error and a result column which come from applying the function:
+pmap_safely adds an error and a result column (which come from applying the function) to the inputted data frame.
 
 ```{r}
 (output <- pmap_safely(numbers, calculate_if_positive))
