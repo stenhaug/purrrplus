@@ -1,9 +1,6 @@
 
 # purrrplus
 
-The purrr package expands the functionality of purrr by executing
-functions safely while maintaining the structure of a data frame.
-
 The tidyverse makes working with data frames particularly easy. However,
 using pmap and running a function safely returns a list. purrrplus adds
 functionality to purrr that keeps analyis within the structure of a data
