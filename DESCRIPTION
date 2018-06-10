@@ -19,3 +19,5 @@ Imports:
 	tidyr
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
+URL: https://github.com/stenhaug/purrrplus
+BugReports: https://github.com/stenhaug/purrrplus/issues
