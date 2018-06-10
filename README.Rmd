@@ -1,0 +1,110 @@
+---
+output: github_document
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+set.seed(1014)
+```
+
+# purrrplus
+
+The purrr package expands the functionality of purrr to maintain data frame structure and run functions safely.
+
+The beauty of the tidyverse is that it allows you to more often work within data frames which have a clean structure. However, both running a function safely (which returns a list) and using pmap make it a bit more troublesome to keep analysis within the structure of a data frame. purrrplus adds functionality to purrr that keeps analyis cleanly within the structure of a data frame. This is useful for running simulations and specific types of data analysis tasks.
+
+## Installation
+
+```{r eval=FALSE, message=FALSE}
+# install.packages("devtools")
+devtools::install_github("stenhaug/purrrplus")
+```
+
+## Getting started
+
+```{r message=FALSE}
+library(purrrplus)
+library(tidyverse) # examples below will require the tidyverse
+```
+
+### Example
+
+Imagine you have a function (which returns a named list or a named vector and might throw an error):
+
+```{r}
+calculate_if_positive <- function(a, b){
+  if(a < 0 & b < 0) {stop("Both numbers are negative.")}
+  else if(a < 0) {stop("Just the first number is negative")}
+  else if(b < 0) {stop("Just the second number is negative")}
+  
+  list(add = a + b,
+       subtract = a - b,
+       multiply = a * b,
+       divide = a / b)
+}
+```
+
+And you want to apply this function to each row of a data frame (which might contain irrelevant variables):
+
+```{r}
+(numbers <- data_frame(a = c(-1, 0, 1, 2),
+                      b = c(2, 1, 0, -1),
+                      irrelevant = c("minneapolis", "st_paul", "minneapolis", "st_paul")))
+```
+
+### The old way
+
+The irrelevant variable causes pmap to throw an error:
+
+```{r error = TRUE}
+output <- pmap(numbers, calculate_if_positive)
+```
+
+One way around this is to remove the irrelevant variables. However, now calculate_if_positive function throws an error that stops everything if *any* of the rows contain a negative number.
+
+```{r error = TRUE}
+numbers2 <- select(numbers, -irrelevant)
+
+output <- pmap(numbers2, calculate_if_positive)
+```
+
+We are applying the function calculate_if_positive 4 times (once for each row in the data frame numbers). It should work for rows 2 and 3 and throw an error for rows 1 and 4. The purrrr function safely allows us to capture the results when it works and the error when it doesn't.
+
+However, a function wrapped in safely returns a list which can be difficult to work with. 
+
+```{r}
+output <- pmap(numbers2, safely(calculate_if_positive))
+str(output)
+```
+
+We can connect the output back to the original data frame, but any subsequent analysis will be quite tricky given the structure of the output column:
+
+```{r}
+mutate(numbers, output = output)
+```
+
+### The purrrplus way
+
+pmap_safely is the key function in purrrplus.
+
+pmap_safely takes a data frame (which might contain irrelevant variables) and applies a function (which returns a named list or a named vector and might throw an error) to each row. 
+
+pmap_safely returns the data frame that was inputted but with an error and a result column which come from applying the function.
+
+```{r}
+(output <- pmap_safely(numbers, calculate_if_positive))
+```
+
+get_errors allows for quick analysis of errors
+
+```{r}
+get_errors(output)
+
+get_errors(output, specific = TRUE)
+```
+
+get_results filters out rows with errors and unnests results such that each item in the list that the function returns has its own column.
+
+```{r}
+get_results(output)
+```

@@ -17,22 +17,22 @@ get_errors_one_var <- function(pmap_safely_output, var, specific = FALSE){
         out <- pmap_safely_output %>%
             dplyr::group_by_at(var) %>%
             dplyr::summarize(n_errors = sum(!is.na(error)),
-                      n_variable_value = dplyr::n(),
+                      count = dplyr::n(),
                       error_rate = mean(!is.na(error))) %>%
-            tidyr::gather(variable, value, -n_errors, -n_variable_value, -error_rate) %>%
-            dplyr::select(variable, value, n_errors, n_variable_value, error_rate) %>%
+            tidyr::gather(variable, value, -n_errors, -count, -error_rate) %>%
+            dplyr::select(variable, value, n_errors, count, error_rate) %>%
             dplyr::arrange(-error_rate) %>%
             dplyr::mutate(value = as.character(value))
     } else if(specific){
-        counts <- pmap_safely_output %>% dplyr::group_by_at(var) %>% dplyr::summarize(n_variable_value = n())
+        counts <- pmap_safely_output %>% dplyr::group_by_at(var) %>% dplyr::summarize(count = n())
 
         out <- pmap_safely_output %>%
             dplyr::group_by_at(c(var, "error")) %>%
             dplyr::summarize(n = n()) %>%
             dplyr::left_join(counts, by = var) %>%
-            dplyr::mutate(rate = n / n_variable_value) %>%
-            tidyr::gather(variable, value, -error, -n, -n_variable_value, -rate) %>%
-            dplyr::select(variable, value, error, n, n_variable_value, rate) %>%
+            dplyr::mutate(rate = n / count) %>%
+            tidyr::gather(variable, value, -error, -n, -count, -rate) %>%
+            dplyr::select(variable, value, error, n, count, rate) %>%
             dplyr::arrange(variable, value, -rate) %>%
             dplyr::mutate(value = as.character(value))
     }
