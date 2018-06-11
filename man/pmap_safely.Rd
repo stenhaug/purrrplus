@@ -27,7 +27,7 @@ calculate_if_positive <- function(a, b){
          divide = a / b)
 }
 # data frame to apply the function to by row
-numbers <- data_frame(a = c(-1, 0, 1, 2),
+numbers <- data.frame(a = c(-1, 0, 1, 2),
                       b = c(2, 1, 0, -1),
                       irrelevant = c("minneapolis", "st_paul", "minneapolis", "st_paul"))
 
