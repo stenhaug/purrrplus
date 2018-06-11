@@ -12,3 +12,7 @@ data_framize(x)
 \description{
 A helper function.
 }
+\examples{
+x <- list(a = 1, b = 2, c = 3)
+data_framize(x)
+}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/get_errors.R
 \name{get_errors_one_var}
 \alias{get_errors_one_var}
+\alias{get_errors}
 \title{Get errors from pmap_safely_output for a specified variable.}
 \usage{
 get_errors_one_var(pmap_safely_output, var, specific = FALSE)
+
+get_errors(pmap_safely_output, specific = FALSE)
 }
 \arguments{
 \item{pmap_safely_output}{The data frame outputted by the function pmap_safely_output. More specifically, must have an error and a result column (which is a list containing named lists or vectors).}
@@ -15,4 +18,29 @@ get_errors_one_var(pmap_safely_output, var, specific = FALSE)
 }
 \description{
 Allows for errors to be easily analyzed.
+}
+\examples{
+# a function to apply
+calculate_if_positive <- function(a, b){
+    if(a < 0 & b < 0) {stop("Both numbers are negative.")}
+    else if(a < 0) {stop("Just the first number is negative")}
+    else if(b < 0) {stop("Just the second number is negative")}
+
+    list(add = a + b,
+         subtract = a - b,
+         multiply = a * b,
+         divide = a / b)
+}
+# data frame to apply the function to by row
+numbers <- data_frame(a = c(-1, 0, 1, 2),
+                      b = c(2, 1, 0, -1),
+                      irrelevant = c("minneapolis", "st_paul", "minneapolis", "st_paul"))
+
+# apply and get errors
+output <- pmap_safely(numbers, calculate_if_positive)
+
+get_errors_one_var(output, var = "a")
+get_errors_one_var(output, var = "a", specific = TRUE)
+get_errors(output)
+get_errors(output, specific = TRUE)
 }

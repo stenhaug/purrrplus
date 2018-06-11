@@ -10,6 +10,9 @@
 #' @importFrom purrr set_names
 #' @importFrom dplyr select
 #' @export
+#' @examples
+#' x <- list(a = 1, b = 2, c = 3)
+#' data_framize(x)
 
 data_framize <- function(x){
     if(is.null(names(x))){

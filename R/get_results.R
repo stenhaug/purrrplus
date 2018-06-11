@@ -9,6 +9,27 @@
 #' @importFrom tidyr unnest
 #' @importFrom dplyr select mutate filter mutate_at
 #' @export
+#' @examples
+#' # a function to apply
+#' calculate_if_positive <- function(a, b){
+#'     if(a < 0 & b < 0) {stop("Both numbers are negative.")}
+#'     else if(a < 0) {stop("Just the first number is negative")}
+#'     else if(b < 0) {stop("Just the second number is negative")}
+#'
+#'     list(add = a + b,
+#'          subtract = a - b,
+#'          multiply = a * b,
+#'          divide = a / b)
+#' }
+#' # data frame to apply the function to by row
+#' numbers <- data_frame(a = c(-1, 0, 1, 2),
+#'                       b = c(2, 1, 0, -1),
+#'                       irrelevant = c("minneapolis", "st_paul", "minneapolis", "st_paul"))
+#'
+#' # apply and get results
+#' output <- pmap_safely(numbers, calculate_if_positive)
+#'
+#' get_results(output)
 
 get_results <- function(pmap_safely_output){
     message(
