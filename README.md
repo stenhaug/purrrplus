@@ -1,11 +1,23 @@
 
 # purrrplus
 
-The tidyverse makes working with data frames particularly easy. However,
-using pmap and running a function safely returns a list. purrrplus adds
-functionality to purrr that keeps analyis within the structure of a data
-frame, which is particularly useful for running simulations and specific
-types of data analysis tasks.
+The [tidyverse](https://www.tidyverse.org/) is built on the idea that
+problems are most easily solved within the structure of a data frame.
+
+The [purrr package](https://purrr.tidyverse.org/) allows for [functional
+programming](http://adv-r.had.co.nz/Functional-programming.html) that
+plays well with data frames using the [map
+functions](https://purrr.tidyverse.org/reference/map2.html) and for
+capturing errors with the [safely
+functions](https://purrr.tidyverse.org/reference/safely.html).
+
+However, the combination of functional programming and capturing errors
+in purrr returns a list which does not work well with data frames.
+
+purrrplus adds functionality to purrr that allows the combination of
+functional programming and capturing errors to be kept within the
+structure of a data frame. This is useful for many data analysis tasks
+and is particularly useful for conducting simulations.
 
 ## Installation
 
@@ -130,8 +142,8 @@ frame (which might contain irrelevant variables) and applies a function
 (which returns a named list or a named vector and might throw an error)
 to each row.
 
-pmap\_safely returns the data frame that was inputted but with an error
-and a result column which come from applying the function:
+pmap\_safely adds an error and a result column (which come from applying
+the function) to the inputted data frame.
 
 ``` r
 (output <- pmap_safely(numbers, calculate_if_positive))
@@ -182,10 +194,10 @@ get_errors(output, specific = TRUE)
 ##  6 b          0           <NA>                               1     1   1  
 ##  7 b          1           <NA>                               1     1   1  
 ##  8 b          2           Just the first number is nega…     1     1   1  
-##  9 irrelevant minneapolis Just the first number is nega…     1     2   0.5
-## 10 irrelevant minneapolis <NA>                               1     2   0.5
-## 11 irrelevant st_paul     Just the second number is neg…     1     2   0.5
-## 12 irrelevant st_paul     <NA>                               1     2   0.5
+##  9 irrelevant minneapolis <NA>                               1     2   0.5
+## 10 irrelevant minneapolis Just the first number is nega…     1     2   0.5
+## 11 irrelevant st_paul     <NA>                               1     2   0.5
+## 12 irrelevant st_paul     Just the second number is neg…     1     2   0.5
 ```
 
 get\_results filters out rows with errors and unnests results such that
