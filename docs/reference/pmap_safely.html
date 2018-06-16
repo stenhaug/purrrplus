@@ -127,12 +127,37 @@
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># a function to apply</span>
+<span class='no'>calculate_if_positive</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>a</span>, <span class='no'>b</span>){
+    <span class='kw'>if</span>(<span class='no'>a</span> <span class='kw'>&lt;</span> <span class='fl'>0</span> <span class='kw'>&amp;</span> <span class='no'>b</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>) {<span class='fu'>stop</span>(<span class='st'>"Both numbers are negative."</span>)}
+    <span class='kw'>else</span> <span class='kw'>if</span>(<span class='no'>a</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>) {<span class='fu'>stop</span>(<span class='st'>"Just the first number is negative"</span>)}
+    <span class='kw'>else</span> <span class='kw'>if</span>(<span class='no'>b</span> <span class='kw'>&lt;</span> <span class='fl'>0</span>) {<span class='fu'>stop</span>(<span class='st'>"Just the second number is negative"</span>)}
+
+    <span class='fu'>list</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='no'>a</span> + <span class='no'>b</span>,
+         <span class='kw'>subtract</span> <span class='kw'>=</span> <span class='no'>a</span> - <span class='no'>b</span>,
+         <span class='kw'>multiply</span> <span class='kw'>=</span> <span class='no'>a</span> * <span class='no'>b</span>,
+         <span class='kw'>divide</span> <span class='kw'>=</span> <span class='no'>a</span> / <span class='no'>b</span>)
+}
+<span class='co'># data frame to apply the function to by row</span>
+<span class='no'>numbers</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>),
+                      <span class='kw'>b</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, -<span class='fl'>1</span>),
+                      <span class='kw'>irrelevant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"minneapolis"</span>, <span class='st'>"st_paul"</span>, <span class='st'>"minneapolis"</span>, <span class='st'>"st_paul"</span>))
+
+<span class='co'># apply</span>
+<span class='fu'>pmap_safely</span>(<span class='no'>numbers</span>, <span class='no'>calculate_if_positive</span>)</div><div class='output co'>#&gt; <span class='message'>Note that the function does not use the following variables: irrelevant</span></div><div class='output co'>#&gt;    a  b  irrelevant                              error       result
+#&gt; 1 -1  2 minneapolis  Just the first number is negative         NULL
+#&gt; 2  0  1     st_paul                               &lt;NA&gt;  1, -1, 0, 0
+#&gt; 3  1  0 minneapolis                               &lt;NA&gt; 1, 1, 0, Inf
+#&gt; 4  2 -1     st_paul Just the second number is negative         NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

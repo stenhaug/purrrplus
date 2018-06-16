@@ -9,10 +9,9 @@ programming](http://adv-r.had.co.nz/Functional-programming.html) that
 plays well with data frames using the [map
 functions](https://purrr.tidyverse.org/reference/map2.html) and for
 capturing errors with the [safely
-functions](https://purrr.tidyverse.org/reference/safely.html).
-
-However, the combination of functional programming and capturing errors
-in purrr returns a list which does not work well with data frames.
+functions](https://purrr.tidyverse.org/reference/safely.html). However,
+the combination of functional programming and capturing errors in purrr
+returns a list which does not work well with data frames.
 
 purrrplus adds functionality to purrr that allows the combination of
 functional programming and capturing errors to be kept within the
