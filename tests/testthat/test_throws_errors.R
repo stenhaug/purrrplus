@@ -7,7 +7,7 @@ context("throws errors")
 f <- function(a){a + 1}
 
 test_that("must return a named vector or list", {
-    expect_error(data_frame(a = 1) %>% pmap_safely(f) %>% get_results(); 2 + 2,
+    expect_error(data_frame(a = 1) %>% pmap_safely(f) %>% get_results(),
                  "Evaluation error: The function needs to return a named list or vector.")
 })
 
