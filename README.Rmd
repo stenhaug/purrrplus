@@ -16,6 +16,10 @@ The [purrr package](https://purrr.tidyverse.org/) allows for [functional program
 
 purrrplus adds functionality to purrr that allows the combination of functional programming and capturing errors to be kept within the structure of a data frame. This is useful for many data analysis tasks and is particularly useful for conducting simulations. 
 
+To learn more about the package, you can either continue reading or watch this video:
+
+[![Introduction to purrrplus video](man/figures/video_thumbnail.png)](https://www.youtube.com/watch?v=7QWzuBiHDk8&list=PLLxj8fULvXwGOf8uHlL4Tr62oXSB5k_in)
+
 ## Installation
 
 ```{r eval=FALSE, message=FALSE}
