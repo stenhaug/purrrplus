@@ -36,7 +36,11 @@ library(tidyverse) # most useful with the tidyverse
 
 ### Example
 
-Imagine you have a function (which returns a named list or a named vector and might throw an error):
+Imagine you have a function with the following properties:
+
+- Returns a named list or a named vector
+
+- Might return an error (you're not sure!) 
 
 ```{r}
 calculate_if_positive <- function(a, b){
