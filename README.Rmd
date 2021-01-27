@@ -9,7 +9,7 @@ set.seed(1014)
 ```
 
 # purrrplus
-
+ 
 The [tidyverse](https://www.tidyverse.org/) is built on the idea that problems are most easily solved within the structure of a data frame. 
 
 The [purrr package](https://purrr.tidyverse.org/) allows for [functional programming](http://adv-r.had.co.nz/Functional-programming.html) that plays well with data frames using the [map functions](https://purrr.tidyverse.org/reference/map2.html) and for capturing errors with the [safely functions](https://purrr.tidyverse.org/reference/safely.html). However, the combination of functional programming and capturing errors in purrr returns a list which does not work well with data frames. 
