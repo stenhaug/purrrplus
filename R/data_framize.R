@@ -16,7 +16,7 @@
 
 data_framize <- function(x){
     if(is.null(names(x))){
-        stop("The function needs to return a named list or vector")
+        stop("This function needs to return a named list or vector")
     }
 
     x %>%
